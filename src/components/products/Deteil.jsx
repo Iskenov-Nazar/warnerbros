@@ -3,7 +3,6 @@ import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import SellIcon from "@mui/icons-material/Sell";
 import "./Deteil.css";
 
 const Deteil = ({ movie, handleCloseModal }) => {

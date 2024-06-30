@@ -4,9 +4,6 @@ import fire from "../fire";
 import { set } from "firebase/database";
 import { useNavigate } from "react-router-dom";
 
-import { useNavigate } from "react-router-dom";
-import fire from "../fire";
-
 const authContext = createContext();
 export const useAuth = () => useContext(authContext);
 
@@ -26,7 +23,6 @@ const AuthContextProvider = ({ children }) => {
     setEmailError("");
     setPasswordError("");
   };
-
 
   const handleRegister = () => {
     fire
@@ -102,7 +98,6 @@ const AuthContextProvider = ({ children }) => {
     handleLogin,
     handleLogOut,
     authListener,
-
   };
   return <authContext.Provider value={values}>{children}</authContext.Provider>;
 };
