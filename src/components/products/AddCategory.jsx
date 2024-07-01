@@ -21,10 +21,10 @@ const AddCategory = ({ open, handleClose }) => {
       alert("Enter the data");
       return;
     }
-    const newMovie = {
+    const newCategory = {
       name: category,
     };
-    createCategory(newMovie);
+    createCategory(newCategory);
     setCategory("");
   };
   return (

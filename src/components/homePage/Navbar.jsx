@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "./assets/logo.jpg";
 import avatar from "./assets/avatar.png";
 import LocalMoviesIcon from "@mui/icons-material/LocalMovies";
@@ -8,26 +9,34 @@ import BookmarksIcon from "@mui/icons-material/Bookmarks";
 import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
 import CloseIcon from "@mui/icons-material/Close";
 import SearchIcon from "@mui/icons-material/Search";
-import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import "./Navbar.css";
+import { Badge, Box, MenuItem, Typography } from "@mui/material";
+import { useCart } from "../../context/CartContextProvider";
+import { getMoviesCountInCart } from "../../helpers/function";
+import { useAuth } from "../../context/AuthContextProvider";
+import { ADMIN } from "../../helpers/const";
+import { ShoppingCart } from "@mui/icons-material";
 
 const Navbar = () => {
   const [searchVisible, setSearchVisible] = useState(false);
+  const [badgeCount, setBadgeCount] = React.useState(0);
+  const { user, handleLogOut } = useAuth();
+  const { addMovieToCart } = useCart();
+
+  React.useEffect(() => {
+    setBadgeCount(getMoviesCountInCart());
+  }, [addMovieToCart]);
 
   const toggleSearch = () => {
     setSearchVisible(!searchVisible);
   };
+
   return (
     <nav className="navbar">
       <div className="navbar-container">
         <a href="#" className="navbar-logo">
           <img src={logo} alt="WB" />
         </a>
-        {/* <button className="navbar-burger-btn active">
-          <span></span>
-          <span></span>
-          <span></span>
-        </button> */}
         <ul className="navbar-menu">
           <li>
             <LocalMoviesIcon />
@@ -50,6 +59,30 @@ const Navbar = () => {
             <a href="#">Shop</a>
           </li>
         </ul>
+        {user?.email === ADMIN ? (
+          <Link to="/admin" style={{ textDecoration: "none" }}>
+            <MenuItem sx={{ color: "white", display: "block" }}>
+              <Typography textAlign="center">ADMIN</Typography>
+            </MenuItem>
+          </Link>
+        ) : null}
+
+        <Link to="/cart">
+          <Badge badgeContent={badgeCount} color="success">
+            <ShoppingCart sx={{ color: "white" }} />
+          </Badge>
+        </Link>
+        {user ? (
+          <MenuItem onClick={handleLogOut}>
+            <Typography sx={{ color: "white" }}>LogOut</Typography>
+          </MenuItem>
+        ) : (
+          <Link to="/auth">
+            <MenuItem>
+              <Typography sx={{ color: "white" }}>Register</Typography>
+            </MenuItem>
+          </Link>
+        )}
         <div className="search-box">
           {searchVisible && (
             <input

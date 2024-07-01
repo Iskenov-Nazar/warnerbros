@@ -18,6 +18,8 @@ const MovieContextProvider = ({ children }) => {
         return { ...state, movies: action.payload };
       case "GET_ONE_MOVIE":
         return { ...state, oneMovie: action.payload };
+      case "GET_CATEGORIS":
+        return { ...state, categories: action.payload };
     }
   };
   const navigate = useNavigate();
@@ -55,7 +57,7 @@ const MovieContextProvider = ({ children }) => {
   //   !EDIT
   const editMovie = async (id, editedMovie) => {
     await axios.patch(`${API}/${id}`, editedMovie);
-    navigate("/movie");
+    navigate("/movies");
   };
   //   !createCategory
   const createCategory = async (newCategory) => {

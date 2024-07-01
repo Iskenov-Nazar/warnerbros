@@ -1,6 +1,5 @@
 import { Copyright, Visibility, VisibilityOff } from "@mui/icons-material";
 import {
-  Avatar,
   Box,
   Button,
   Container,
@@ -30,8 +29,13 @@ const Auth = () => {
     passwordError,
     setEmail,
     setPassword,
+    setPasswordError,
+    user,
+    setUser,
     handleRegister,
     handleLogin,
+    handleLogOut,
+    authListener,
     hasAccount,
     setHasAccount,
   } = useAuth();
@@ -45,15 +49,12 @@ const Auth = () => {
           alignItems: "center",
         }}
       >
-        {/* <Avatar>
-          <LockOutlinedIcon />
-        </Avatar> */}
         <Typography component="h1" variant="h5">
           {hasAccount ? "Login form" : "Register Now"}
         </Typography>
         <Box
           onSubmit={handleSubmit}
-          novalidate
+          noValidate
           component="form"
           sx={{
             mt: 1,
@@ -73,7 +74,7 @@ const Auth = () => {
           />
           <OutlinedInput
             autoComplete="current-password"
-            id="outlined-adorment-password"
+            id="outlined-adornment-password"
             fullWidth
             required
             onChange={(e) => setPassword(e.target.value)}
