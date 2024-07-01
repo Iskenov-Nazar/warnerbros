@@ -134,6 +134,4 @@ const Auth = () => {
       </Box>
     </Container>
   );
-};
-
-export default Auth;
+}

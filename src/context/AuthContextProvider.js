@@ -2,9 +2,8 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 import fire from "../fire";
 
 import { useNavigate } from "react-router-dom";
-
-const authContext = createContext();
-export const useAuth = () => useContext(authContext);
+// const authContext = createContext();
+// export const useAuth = () => useContext(authContext);
 
 const AuthContextProvider = ({ children }) => {
   const [email, setEmail] = useState("");
@@ -109,3 +108,4 @@ const AuthContextProvider = ({ children }) => {
 };
 
 export default AuthContextProvider;
+

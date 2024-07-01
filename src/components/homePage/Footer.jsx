@@ -1,4 +1,5 @@
 import React from "react";
+import FacebookOutlinedIcon from "@mui/icons-material/FacebookOutlined";
 
 const Footer = () => {
   return (
@@ -6,6 +7,10 @@ const Footer = () => {
       <div class="container">
         <div class="footer-col">
           <h2>Logo</h2>
+          <img
+            src="https://static-prod.adweek.com/wp-content/uploads/2019/11/new-warner-bros-logo-transformation-content-2019.gif"
+            alt=""
+          />
           <p class="footer-para">
             TM & © 2024 Warner Bros. Entertainment Inc. All rights reserved
           </p>
@@ -63,6 +68,8 @@ const Footer = () => {
           <div class="social-icons">
             <a href="https://www.facebook.com/warnerbrosent/">
               <i class="fa-brands fa-facebook"></i>
+              <FacebookOutlinedIcon />
+              {/* <i class="fa-brands fa-facebook"></i> */}
             </a>
             <a href="https://www.instagram.com/warnerbrosentertainment/">
               <i class="fa-brands fa-instagram"></i>

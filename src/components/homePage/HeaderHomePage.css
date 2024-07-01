@@ -5,6 +5,8 @@
 }
 .full-screen_video {
   position: absolute;
+  margin-top: 20px;
+  position: relative;
   top: 0;
   left: 0;
   width: 100%;

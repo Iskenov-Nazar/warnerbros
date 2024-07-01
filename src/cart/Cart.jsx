@@ -10,9 +10,10 @@ import {
 } from "@mui/material";
 import React, { useEffect } from "react";
 import { useCart } from "../context/CartContextProvider";
-
+// import { useCart } from "../context/CartContextProvider";
 const Cart = () => {
-  const { cart, chaingeMovieCart, deleteMovieFromCart, getCart } = useCart();
+  const { cart, changeProductCount, deleteProductFromCart, getCart } =
+    useCart();
   useEffect(() => {
     getCart();
   }, []);
@@ -22,7 +23,9 @@ const Cart = () => {
         <Table aria-label="simple table" sx={{ minWidth: 650 }}>
           <TableHead>
             <TableRow>
+
               <TableCell>Movie</TableCell>
+              <TableCell>Picture</TableCell>
               <TableCell>Title</TableCell>
               <TableCell>Category</TableCell>
               <TableCell>Price</TableCell>
