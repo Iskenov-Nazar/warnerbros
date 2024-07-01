@@ -1,0 +1,60 @@
+/* src/pages/LikedPage.css */
+.liked-page {
+  padding: 20px;
+}
+
+.liked-movies-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.movie-card {
+  width: 50px;
+  position: relative; /* Добавляем для размещения кнопок внутри карточки */
+}
+
+.movie-image {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+.movie-title {
+  text-align: center;
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+.more-button {
+  display: block;
+  text-align: center;
+  margin-top: 10px;
+  padding: 10px;
+  background: #0078ff;
+  background: linear-gradient(45deg, #ff357a, #fff172);
+  color: white;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  text-decoration: none; /* Убираем подчеркивание */
+  font-weight: bold;
+}
+.more-button:hover {
+  background: #ff357a; /* Тёмно-розовый цвет при наведении */
+}
+
+.remove-button {
+  display: block;
+  margin-top: 10px;
+  padding: 8px 12px;
+  background: #ff4747; /* Красный фон для кнопки удаления */
+  color: white;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  font-weight: bold;
+}
+.remove-button:hover {
+  background: #cc0000; /* Тёмно-красный цвет при наведении */
+}

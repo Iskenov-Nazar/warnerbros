@@ -1,9 +1,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
 
 .navbar {
+  position: fixed;
   width: 100%;
-  background-color: #000;
-  color: #fff;
+  background-color: white;
+  color: black;
   padding: 10px 20px;
   display: flex;
   justify-content: center; /**/
@@ -20,7 +21,7 @@
 }
 .navbar-logo img {
   height: 60px;
-  width: 90px;
+  width: 100%;
 }
 .navbar-logo:not(:root) {
   overflow-clip-margin: content-box;
@@ -66,7 +67,7 @@
 }
 
 .navbar-menu a:hover::after {
-  background-color: aqua;
+  background-color: orange;
 }
 
 .search-box {
@@ -74,11 +75,13 @@
   justify-content: flex-end;
   align-items: center;
   position: relative;
-  width: 200px;
+  width: 350px;
   margin-left: auto;
   margin-right: 20px;
 }
-
+.search-box input {
+  width: 400px;
+}
 .search-icon {
   border: none;
   background: transparent;
