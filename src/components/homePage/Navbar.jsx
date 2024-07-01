@@ -96,6 +96,7 @@ import React, { useState } from "react";
 import LocalMoviesIcon from "@mui/icons-material/LocalMovies";
 import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
 import SearchIcon from "@mui/icons-material/Search";
+
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import PersonIcon from "@mui/icons-material/Person";
 import FavoriteIcon from "@mui/icons-material/Favorite";
@@ -132,7 +133,6 @@ const Navbar = () => {
             alt="Warner Bros Logo"
           />
         </Link>
-
         <ul className="navbar-menu">
           <li>
             <LocalMoviesIcon />
@@ -166,7 +166,30 @@ const Navbar = () => {
             <Link to="/admin">ADMIN</Link>
           </li>
         </ul>
+        {user?.email === ADMIN ? (
+          <Link to="/admin" style={{ textDecoration: "none" }}>
+            <MenuItem sx={{ color: "white", display: "block" }}>
+              <Typography textAlign="center">ADMIN</Typography>
+            </MenuItem>
+          </Link>
+        ) : null}
 
+        <Link to="/cart">
+          <Badge badgeContent={badgeCount} color="success">
+            <ShoppingCart sx={{ color: "white" }} />
+          </Badge>
+        </Link>
+        {user ? (
+          <MenuItem onClick={handleLogOut}>
+            <Typography sx={{ color: "white" }}>LogOut</Typography>
+          </MenuItem>
+        ) : (
+          <Link to="/auth">
+            <MenuItem>
+              <Typography sx={{ color: "white" }}>Register</Typography>
+            </MenuItem>
+          </Link>
+        )}
         <div className="search-box">
           {searchVisible && (
             <input

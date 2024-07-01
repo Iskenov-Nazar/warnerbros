@@ -4,6 +4,7 @@
   flex-direction: column;
 }
 .full-screen_video {
+  position: absolute;
   margin-top: 20px;
   position: relative;
   top: 0;

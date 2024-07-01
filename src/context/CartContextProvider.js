@@ -2,16 +2,16 @@ import React, { createContext, useContext, useReducer } from "react";
 import {
   calcSubPrice,
   calcTotalPrice,
-  calctotalPrice,
   getLocalStorage,
-  getProductsCountInCart,
+  getMoviesCountInCart,
+  calctotalPrice,
 } from "../helpers/function";
 export const cartContext = createContext();
 export const useCart = () => useContext(cartContext);
 const CartContextProvider = ({ children }) => {
   const INIT_STATE = {
     cart: JSON.parse(localStorage.getItem("cart")),
-    cartLength: getProductsCountInCart(),
+    cartLength: getMoviesCountInCart(),
   };
   const reducer = (state = INIT_STATE, action) => {
     switch (action.type) {
@@ -30,6 +30,7 @@ const CartContextProvider = ({ children }) => {
     let cart = getLocalStorage();
     if (!cart) {
       cart = {
+        movies: [],
         cartoons: [],
         totalPrice: 0,
       };
@@ -52,6 +53,8 @@ const CartContextProvider = ({ children }) => {
         (elem) => elem.item.id !== cartoons.id
       );
     }
+    cart.totalPrice = calcTotalPrice(cart.movies);
+    localStorage.setItem("cart", JSON.stringify(cart));
     //пересчитываем totalPrice
     cart.totalPrice = calcTotalPrice(cart.cartoons);
     // обновляем данные в localStorage
@@ -70,9 +73,10 @@ const CartContextProvider = ({ children }) => {
     if (!cart) {
       localStorage.setItem(
         "cart",
-        JSON.stringify({ cartoons: [], totalPrice: 0 })
+        JSON.stringify({ movies: [], totalPriceL: 0 })
       );
       cart = {
+        movies: [],
         cartoons: [],
         totalPrice: 0,
       };
@@ -92,6 +96,29 @@ const CartContextProvider = ({ children }) => {
       return newCart.length > 0 ? true : false;
     }
   };
+  const chaingeMovieCart = (id, value) => {
+    let cart = getLocalStorage();
+    cart.movies = cart.movies.map((elem) => {
+      if (elem.item.id == id) {
+        elem.count = value;
+        elem.subPrice = calcSubPrice(elem);
+      }
+      return elem;
+    });
+    cart.totalPrice = calcTotalPrice(cart.movies);
+    localStorage.setItem("cart", JSON.stringify(cart));
+    dispatch({
+      type: "GET_CART",
+      payload: cart,
+    });
+  };
+  //   !DELETE
+  const deleteMovieFromCart = (id) => {
+    let cart = getLocalStorage();
+    cart.movies = cart.movies.filter((elem) => elem.item.id !== id);
+    cart.totalPrice = calcTotalPrice(cart.movies);
+    localStorage.setItem("cart", JSON.stringify(cart));
+    dispatch({ type: "GET_CART", payload: cart });
   // функция для изменения стоимости за одну позицию
   const changeProductCount = (id, value) => {
     let cart = getLocalStorage();
@@ -131,9 +158,10 @@ const CartContextProvider = ({ children }) => {
   const values = {
     addProductToCart,
     cart: state.cart,
-    checkProductInCart,
-    changeProductCount,
-    deleteProductFromCart,
+    addMovieToCart,
+    checkMovieInCart,
+    chaingeMovieCart,
+    deleteMovieFromCart,
     getCart,
   };
   return <cartContext.Provider value={values}>{children}</cartContext.Provider>;

@@ -99,70 +99,15 @@
 //   );
 // };
 
-// export default MovieContextProvider;
-//!
-import React, { useState, useEffect } from "react";
-import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
-import BookmarkIcon from "@mui/icons-material/Bookmark";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import SellIcon from "@mui/icons-material/Sell";
-import ModeCommentOutlinedIcon from "@mui/icons-material/ModeCommentOutlined";
-import "./Deteil.css";
-
-// Компонент для отображения деталей фильма
-const Deteil = ({ movie, handleCloseModal }) => {
-  // Состояния для отслеживания, добавлен ли фильм в закладки и в избранное
-  const [isBookmarked, setIsBookmarked] = useState(false);
-  const [isFavoriteMark, setIsFavoriteMark] = useState(false);
-  const [isCommentModalOpen, setIsCommentModalOpen] = useState(false);
-  const [comments, setComments] = useState([]);
-  const [newComment, setNewComment] = useState("");
-  const [username, setUsername] = useState("Guest");
-
-  // Хук useEffect для инициализации состояния закладок и избранного при изменении фильма
-  useEffect(() => {
-    // Получаем сохраненные фильмы из localStorage
-    const likedMovies = JSON.parse(localStorage.getItem("likedMovies")) || [];
-    const favoriteMovies =
-      JSON.parse(localStorage.getItem("favoriteMovies")) || [];
-    const savedComments =
-      JSON.parse(localStorage.getItem(`comments-${movie.title}`)) || [];
-
-    // Проверяем, находится ли фильм в избранном или закладках
-    const isMovieLiked = likedMovies.some((m) => m.title === movie.title);
-    const isMovieFavorited = favoriteMovies.some(
-      (m) => m.title === movie.title
-    );
-
-    // Устанавливаем состояние в зависимости от наличия фильма в localStorage
-    setIsFavoriteMark(isMovieLiked);
-    setIsBookmarked(isMovieFavorited);
-    setComments(savedComments);
-  }, [movie.title]);
-
-  // Функция для переключения состояния закладок
-  const toggleBookmark = () => {
-    setIsBookmarked(!isBookmarked);
-
-    // Получаем список избранных фильмов из localStorage
-    const favoriteMovies =
-      JSON.parse(localStorage.getItem("favoriteMovies")) || [];
-    if (isBookmarked) {
-      // Если фильм уже в закладках, удаляем его
-      const updatedFavoriteMovies = favoriteMovies.filter(
-        (m) => m.title !== movie.title
-      );
-      localStorage.setItem(
-        "favoriteMovies",
-        JSON.stringify(updatedFavoriteMovies)
-      );
-    } else {
-      // Если фильм не в закладках, добавляем его
-      localStorage.setItem(
-        "favoriteMovies",
-        JSON.stringify([...favoriteMovies, movie])
-      );
+const MovieContextProvider = ({ children }) => {
+  const reducer = (state = INIT_STATE, action) => {
+    switch (action.type) {
+      case "GET_MOVIES":
+        return { ...state, movies: action.payload };
+      case "GET_ONE_MOVIE":
+        return { ...state, oneMovie: action.payload };
+      case "GET_CATEGORIS":
+        return { ...state, categories: action.payload };
     }
   };
 
@@ -192,6 +137,18 @@ const Deteil = ({ movie, handleCloseModal }) => {
     setIsCommentModalOpen(true);
   };
 
+  //   !GetOneMovie
+  const getOneMovie = async (id) => {
+    const { data } = await axios(`${API}/${id}`);
+    dispatch({
+      type: "GET_ONE_MOVIE",
+      payload: data,
+    });
+  };
+  //   !EDIT
+  const editMovie = async (id, editedMovie) => {
+    await axios.patch(`${API}/${id}`, editedMovie);
+    navigate("/movies");
   // Функция для закрытия модального окна комментариев
   const closeCommentModal = () => {
     setIsCommentModalOpen(false);

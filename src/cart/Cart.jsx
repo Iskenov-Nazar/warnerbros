@@ -11,7 +11,6 @@ import {
 import React, { useEffect } from "react";
 import { useCart } from "../context/CartContextProvider";
 // import { useCart } from "../context/CartContextProvider";
-
 const Cart = () => {
   const { cart, changeProductCount, deleteProductFromCart, getCart } =
     useCart();
@@ -24,6 +23,8 @@ const Cart = () => {
         <Table aria-label="simple table" sx={{ minWidth: 650 }}>
           <TableHead>
             <TableRow>
+
+              <TableCell>Movie</TableCell>
               <TableCell>Picture</TableCell>
               <TableCell>Title</TableCell>
               <TableCell>Category</TableCell>
@@ -34,23 +35,17 @@ const Cart = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {cart.products.map((elem) => (
+            {cart.movies.map((elem) => (
               <TableRow
                 key={elem.item.id}
-                sx={{ minWidth: 650 }}
-                aria-label="simple table"
+                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
                 <TableCell component={"th"} scope="row">
-                  <img
-                    style={{ border: "2px solid black", borderRadius: "10px" }}
-                    src={elem.item.image}
-                    alt=""
-                    width={70}
-                  />
+                  <img src={elem.item.image} alt="" width={70} />
                 </TableCell>
                 <TableCell>{elem.item.title}</TableCell>
                 <TableCell>{elem.item.category}</TableCell>
-                <TableCell>{elem.item.price}$</TableCell>
+                <TableCell>{elem.item.price}</TableCell>
                 <TableCell>
                   <input
                     type="number"
@@ -58,22 +53,22 @@ const Cart = () => {
                     max={20}
                     defaultValue={elem.count}
                     onChange={(e) =>
-                      changeProductCount(elem.item.id, e.target.value)
+                      chaingeMovieCart(elem.item.id, e.target.value)
                     }
                   />
                 </TableCell>
-                <TableCell>{elem.subPrice}$</TableCell>
-                <Button onClick={() => deleteProductFromCart(elem.item.id)}>
-                  DELETE
-                </Button>
+                <TableCell>{elem.subPrice}</TableCell>
+                <TableCell>
+                  <Button onClick={() => deleteMovieFromCart(elem.item.id)}>
+                    Delete
+                  </Button>
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>
         </Table>
       </TableContainer>
-      <Button sx={{ marginLeft: "955px" }}>
-        BUY NOW FOR {cart.totalPrice}
-      </Button>
+      <Button>Buy now {cart.totalPrice}</Button>
     </div>
   );
 };

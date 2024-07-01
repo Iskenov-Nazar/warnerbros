@@ -6,6 +6,7 @@ const Footer = () => {
     <footer>
       <div class="container">
         <div class="footer-col">
+          <h2>Logo</h2>
           <img
             src="https://static-prod.adweek.com/wp-content/uploads/2019/11/new-warner-bros-logo-transformation-content-2019.gif"
             alt=""
@@ -66,6 +67,7 @@ const Footer = () => {
           </form>
           <div class="social-icons">
             <a href="https://www.facebook.com/warnerbrosent/">
+              <i class="fa-brands fa-facebook"></i>
               <FacebookOutlinedIcon />
               {/* <i class="fa-brands fa-facebook"></i> */}
             </a>
